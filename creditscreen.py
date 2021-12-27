@@ -23,7 +23,7 @@ if platform.system() == "Windows":
 size = (850,600)  
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("poisonous pyramids")
-surface = pygame.image.load("creditssurface.jpeg")
+surface = pygame.image.load("images/creditssurface.jpeg")
 screen.blit(surface,(0,0))
 
 
