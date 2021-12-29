@@ -29,6 +29,14 @@ window = pygame.display.set_mode(size)
 pygame.display.set_caption('Poisonous Pyramids') 
 screen = pygame.display.get_surface() 
 
+#Change the logo of our window
+pygame_icon = pygame.image.load("images/logo.png")
+pygame.display.set_icon(pygame_icon)
+
+#Clock
+clock = pygame.time.Clock()
+refresh_rate=30
+
 #Setting up the font and the size 
 myfont_title = pygame.font.SysFont("Papyrus", 60)
 myfont_body = pygame.font.SysFont("times new roman", 30)
@@ -59,6 +67,7 @@ try:
     while running:
         #The Event Loop #
         events=pygame.event.get()
+        clock.tick(60) #frame rate/second
         
         #Main menu/background image        
         surface = pygame.image.load("images\pyramids.jpg")
@@ -72,6 +81,7 @@ try:
         screen.blit(title, (175,50))
         screen.blit(title_end, (225,125))
         screen.blit(sub_title, (350,200))        
+        
         #Depending on which show is used, show a different screen and buttons
         if show == "main menu":
             #Button for instructions
@@ -134,13 +144,19 @@ try:
                 show = "main menu"
                 
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
-                screen.fill(THECOLORS["white"])
-                screen.blit(myfont_body.render("Goodbye", 1, (0,0,0)), (0,0))
-                pygame.display.update()            
-                time.sleep(1)
-                running = False        
-        
-        pygame.display.update() 
+                x=0
+                y=0
+                credit_screen= pygame.image.load("images/roll_credits.png").convert_alpha()                
+                
+                #scroll
+                while y!=-600:
+                    y-=5
+                    screen.blit(credit_screen,(x, y))
+                    pygame.display.flip()	 #update screen
+                    clock.tick(refresh_rate)
+                running=False    
+
+        pygame.display.update()
         
 # Event Handling End #
 finally:
