@@ -9,6 +9,7 @@ Description: Combine the title screen and main menu
 import pygame, sys, os, time
 from pygame.locals import * 
 from pygame.color import THECOLORS
+from pygame import mixer
 
 #If you get the no available video device error
 import platform, os
@@ -36,6 +37,16 @@ pygame.display.set_icon(pygame_icon)
 #Clock
 clock = pygame.time.Clock()
 refresh_rate=30
+
+#Adding music
+# Starting the mixer
+mixer.init()
+# Loading the song
+mixer.music.load("music/music.wav")
+# Setting the volume
+mixer.music.set_volume(0.3)
+# Start playing the song
+mixer.music.play()
 
 #Setting up the font and the size 
 myfont_title = pygame.font.SysFont("Papyrus", 60)
