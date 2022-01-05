@@ -126,15 +126,18 @@ try:
             screen.blit(myfont_body.render("Results", 1, THECOLORS['antiquewhite']), (455,405))
         
         elif show == "instructions":
-            screen.fill(THECOLORS["red"])
-            #Button to return to main menu
-            pygame.draw.rect(screen, THECOLORS['brown'], (695, 545, 150, 50))
-            screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (732,555))
+            surface = pygame.image.load("images/instructions.png")
+            screen.blit(surface,(0,0))
+            
+            title=myfont_title.render("INSTRUCTIONS", True, THECOLORS["antiquewhite"])
+            screen.blit(title, (120,50))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (350, 545, 150, 50))
+            screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (385, 550))
             
         elif show == "lesson":
-            screen.fill(THECOLORS["orange"])
             #Button to return to main menu
-            pygame.draw.rect(screen, THECOLORS['brown'], (695, 545, 150, 50))
+            pygame.draw.rect(screen, THECOLORS['brown'], (695, 545, 300, 50))
             screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (732,555))            
         
         elif show == "review":
@@ -680,6 +683,10 @@ try:
                 elif x>425 and x<425+150 and y>400 and y<400+50 and butt[0]==1:
                     show = "results"
             
+            #Intruction button (return)
+            if x>350 and x<350+150 and y>545 and y<545+50 and butt[0]==1 and show=="instructions":
+                show = "main menu"          
+                
             #Quiz buttons
             elif show=="quiz":
                 if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
