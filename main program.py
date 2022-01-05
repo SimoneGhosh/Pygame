@@ -51,6 +51,7 @@ mixer.music.play()
 #Setting up the font and the size 
 myfont_title = pygame.font.SysFont("Papyrus", 60)
 myfont_body = pygame.font.SysFont("times new roman", 30)
+myfont_small = pygame.font.SysFont("times new roman", 15)
 test=pygame.display.get_driver()
 
 
@@ -64,52 +65,63 @@ text2=myfont_title.render("PYRAMIDS", True, THECOLORS["brown"])
 screen.blit(text, (175,50))
 screen.blit(text2, (225,150))
 
+#Add our info
+name_sg=myfont_small.render("Simone Ghosh", True, THECOLORS["brown"])
+screen.blit(name_sg, (175,200))
+name_mj=myfont_small.render("Mona Jiang", True, THECOLORS["brown"])
+screen.blit(name_mj, (175,220))
+name_teacher=myfont_small.render("L. Keras", True, THECOLORS["brown"])
+screen.blit(name_teacher, (175,240))
+class_code=myfont_small.render("ICS207", True, THECOLORS["brown"])
+screen.blit(class_code, (175,260))
 #Update and refresh the display to end this frame
 pygame.display.flip() #flip all changes onto the display window
-time.sleep(1) #<-- Window will pause and than change 
+time.sleep(2) #<-- Window will pause and than change 
 
 
 
 # The Game Loop
 running=True
 show="main menu"
-
+quiz_completed = False
 try:
     while running:
-        #The Event Loop #
-        events=pygame.event.get()
         clock.tick(60) #frame rate/second
-        
-        #Main menu/background image        
-        surface = pygame.image.load("images\pyramids.jpg")
-        screen.blit(surface,(0,0))
-        
-        #Displaying titles 
-        title=myfont_title.render("POISONOUS", True, THECOLORS["brown"])
-        title_end=myfont_title.render("PYRAMIDS", True, THECOLORS["brown"])
-        sub_title=myfont_body.render("main menu", True, THECOLORS["brown"])
-        
-        screen.blit(title, (175,50))
-        screen.blit(title_end, (225,125))
-        screen.blit(sub_title, (350,200))        
         
         #Depending on which show is used, show a different screen and buttons
         if show == "main menu":
+            #Main menu/background image        
+            surface = pygame.image.load("images/pyramids.jpg")
+            screen.blit(surface,(0,0))
+            
+            #Displaying titles 
+            title=myfont_title.render("POISONOUS", True, THECOLORS["brown"])
+            title_end=myfont_title.render("PYRAMIDS", True, THECOLORS["brown"])
+            sub_title=myfont_body.render("main menu", True, THECOLORS["brown"])
+            
+            screen.blit(title, (175,50))
+            screen.blit(title_end, (225,125))
+            screen.blit(sub_title, (350,200))
+            
             #Button for instructions
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
             screen.blit(myfont_body.render("Instructions", 1, THECOLORS['antiquewhite']), (180,305))
         
             #Button for lesson
-            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
-            screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (530,305))
-        
+            pygame.draw.rect(screen, THECOLORS['brown'], (335, 300, 150, 50))
+            screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (365,305))
+            
             #Button for review
-            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
-            screen.blit(myfont_body.render("Review", 1, THECOLORS['antiquewhite']), (205,410)) 
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("Review", 1, THECOLORS['antiquewhite']), (530,305))
+            
+            #Button for review
+            pygame.draw.rect(screen, THECOLORS['brown'], (250, 400, 150, 50))
+            screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (290,405)) 
         
             #Button for quiz
-            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
-            screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (545,410))
+            pygame.draw.rect(screen, THECOLORS['brown'], (425, 400, 150, 50))
+            screen.blit(myfont_body.render("Results", 1, THECOLORS['antiquewhite']), (455,405))
         
         elif show == "instructions":
             screen.fill(THECOLORS["red"])
@@ -130,34 +142,650 @@ try:
             screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (732,555))
             
         elif show == "quiz":
-            screen.fill(THECOLORS["pink"])
-            #Button to return to main menu
-            pygame.draw.rect(screen, THECOLORS['brown'], (695, 545, 150, 50))
-            screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (732,555))
+            correct_answers = 0
+            surface = pygame.image.load("images/egp_pyramidssphinx.jpg")
+            screen.blit(surface,(0,0))
             
-        #Allow user to exit the game
+            #Displaying titles 
+            title=myfont_title.render("QUIZ", True, THECOLORS["brown"])
+            screen.blit(title, (315,50))
+            
+            #Display a speech
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+            screen.blit(myfont_small.render("Your knowledge on ancient Egypt will be tested by questions. If you do", 1, THECOLORS['antiquewhite']), (180,155))
+            screen.blit(myfont_small.render("not feel comfortable beginning the quiz, please review the lesson. Once", 1, THECOLORS['antiquewhite']), (180,175))
+            screen.blit(myfont_small.render("you have begun the quiz, you must complete all the questions, there is no", 1, THECOLORS['antiquewhite']), (180,195))
+            screen.blit(myfont_small.render("time limit, When you click an answer, the correct response will appear in", 1, THECOLORS['antiquewhite']), (180,215))
+            screen.blit(myfont_small.render("green, while the others in red. Then, after 3 seconds, the next question", 1, THECOLORS['antiquewhite']), (180,235))
+            screen.blit(myfont_small.render("will appear. In the top right corner, you will see your score. Press the", 1, THECOLORS['antiquewhite']), (180,255))
+            screen.blit(myfont_small.render("‘Start’ button to begin. Good luck!", 1, THECOLORS['antiquewhite']), (180,275))
+            
+            #Button to lesson
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
+            screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (205,360)) 
+            
+            #Button for main menu
+            pygame.draw.rect(screen, THECOLORS['brown'], (335, 350, 150, 50))
+            screen.blit(myfont_body.render("Main menu", 1, THECOLORS['antiquewhite']), (340,355))
+            
+            #Button to begin quiz
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 350, 150, 50))
+            screen.blit(myfont_body.render("Start", 1, THECOLORS['antiquewhite']), (545,360))   
+            
+        elif show=="answering Q1":
+            screen.blit(surface,(0,0))
+            
+            #Question
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Who is the Egyptian god of the Nile?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_body.render("Hathor", 1, THECOLORS['antiquewhite']), (210,305))
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("Hapi", 1, THECOLORS['antiquewhite']), (545,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_body.render("Horus", 1, THECOLORS['antiquewhite']), (215,410)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_body.render("Nile", 1, THECOLORS['antiquewhite']), (545,410))        
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            pygame.display.flip()
+            
+        elif show=="answered Q1":
+            screen.blit(surface,(0,0))
+            
+            #Question
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Who is the Egyptian god of the Nile?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 300, 150, 50))
+            screen.blit(myfont_body.render("Hathor", 1, THECOLORS['antiquewhite']), (210,305))
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("Hapi", 1, THECOLORS['black']), (545,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_body.render("Horus", 1, THECOLORS['antiquewhite']), (215,410)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 400, 150, 50))
+            screen.blit(myfont_body.render("Nile", 1, THECOLORS['antiquewhite']), (545,410))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q2"
+            
+        elif show=="answering Q2":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What land was known as the 'Kemet'?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("Nutrient filled river", 1, THECOLORS['antiquewhite']), (180,302))
+            screen.blit(myfont_small.render("banks beside the Nile", 1, THECOLORS['antiquewhite']), (180,317))
+            screen.blit(myfont_small.render("river.", 1, THECOLORS['antiquewhite']), (180,333))
+         
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("Nutrient depleted river", 1, THECOLORS['antiquewhite']), (505,302))
+            screen.blit(myfont_small.render("banks beside the", 1, THECOLORS['antiquewhite']), (505,317))
+            screen.blit(myfont_small.render("Nile river.", 1, THECOLORS['antiquewhite']), (505,333))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("There was no land", 1, THECOLORS['antiquewhite']), (190,405)) 
+            screen.blit(myfont_small.render("known as 'kemet'.", 1, THECOLORS['antiquewhite']), (190,420)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("Nutrient depleted river", 1, THECOLORS['antiquewhite']), (505,405))   
+            screen.blit(myfont_small.render("banks.", 1, THECOLORS['antiquewhite']), (505,420))   
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))          
+            pygame.display.flip()
+            
+        elif show=="answered Q2":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What land was known as the 'Kemet'?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("Nutrient filled river", 1, THECOLORS['black']), (180,302))
+            screen.blit(myfont_small.render("banks beside the Nile", 1, THECOLORS['black']), (180,317))
+            screen.blit(myfont_small.render("river.", 1, THECOLORS['black']), (180,333))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("Nutrient depleted river", 1, THECOLORS['antiquewhite']), (505,302))
+            screen.blit(myfont_small.render("banks beside the", 1, THECOLORS['antiquewhite']), (505,317))
+            screen.blit(myfont_small.render("Nile river.", 1, THECOLORS['antiquewhite']), (505,333))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("There was no land", 1, THECOLORS['antiquewhite']), (190,405)) 
+            screen.blit(myfont_small.render("known as 'kemet'.", 1, THECOLORS['antiquewhite']), (190,420))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("Nutrient depleted river", 1, THECOLORS['antiquewhite']), (505,405))   
+            screen.blit(myfont_small.render("banks.", 1, THECOLORS['antiquewhite']), (505,420)) 
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q3"
+            
+        elif show=="answering Q3":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Where is upper Egypt located?", 1, THECOLORS['antiquewhite']), (230,180))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("The South of Egypt", 1, THECOLORS['antiquewhite']), (190,315))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("The North of Egypt", 1, THECOLORS['antiquewhite']), (515,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("The West of Egypt", 1, THECOLORS['antiquewhite']), (190,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("The East of Egypt", 1, THECOLORS['antiquewhite']), (515,415))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            pygame.display.flip()                 
+            
+        elif show=="answered Q3":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Where is upper Egypt located?", 1, THECOLORS['antiquewhite']), (230,180))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("The South of Egypt", 1, THECOLORS['black']), (190,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("The North of Egypt", 1, THECOLORS['antiquewhite']), (515,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("The West of Egypt", 1, THECOLORS['antiquewhite']), (190,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("The East of Egypt", 1, THECOLORS['antiquewhite']), (515,415))      
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q4" 
+            
+        elif show=="answering Q4":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What is a Dynasty?", 1, THECOLORS['antiquewhite']), (300,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("That is not a word.", 1, THECOLORS['antiquewhite']), (195,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("A family of peasents.", 1, THECOLORS['antiquewhite']), (510,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("A succession of rulers", 1, THECOLORS['antiquewhite']), (180,405)) 
+            screen.blit(myfont_small.render("from different families.", 1, THECOLORS['antiquewhite']), (180,420)) 
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("A succession of rulers", 1, THECOLORS['antiquewhite']), (505,405))
+            screen.blit(myfont_small.render("from the same family.", 1, THECOLORS['antiquewhite']), (505,420))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            
+        elif show=="answered Q4":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What is a Dynasty?", 1, THECOLORS['antiquewhite']), (300,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("That is not a word.", 1, THECOLORS['antiquewhite']), (195,315))
+
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("A family of peasents.", 1, THECOLORS['antiquewhite']), (510,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("A succession of rulers", 1, THECOLORS['antiquewhite']), (180,405)) 
+            screen.blit(myfont_small.render("from different families.", 1, THECOLORS['antiquewhite']), (180,420)) 
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("A succession of rulers", 1, THECOLORS['black']), (505,405))
+            screen.blit(myfont_small.render("from the same family.", 1, THECOLORS['black']), (505,420))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q5"
+            
+        elif show=="answering Q5":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What time period was the", 1, THECOLORS['antiquewhite']), (255,155))
+            screen.blit(myfont_body.render("old kingdom?", 1, THECOLORS['antiquewhite']), (325,200))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("2800 BCE-2300 BCE.", 1, THECOLORS['antiquewhite']), (180,315))
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("2700 BCE-2200 BCE.", 1, THECOLORS['antiquewhite']), (505,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("3800 BCE-3300 BCE.", 1, THECOLORS['antiquewhite']), (180,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("None of the above.", 1, THECOLORS['antiquewhite']), (515,415))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105)) 
+            pygame.display.flip()
+            
+        elif show=="answered Q5":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("What time period was the", 1, THECOLORS['antiquewhite']), (255,155))
+            screen.blit(myfont_body.render("old kingdom?", 1, THECOLORS['antiquewhite']), (325,200))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("2800 BCE-2300 BCE.", 1, THECOLORS['antiquewhite']), (180,315))
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("2700 BCE-2200 BCE.", 1, THECOLORS['black']), (505,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("3800 BCE-3300 BCE.", 1, THECOLORS['antiquewhite']), (180,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("None of the above.", 1, THECOLORS['antiquewhite']), (515,415))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q6"
+            
+        elif show=="answering Q6":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("How many great pyramids are there?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_body.render("2", 1, THECOLORS['antiquewhite']), (245,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("32", 1, THECOLORS['antiquewhite']), (560,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_body.render("60", 1, THECOLORS['antiquewhite']), (235,410)) 
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_body.render("30", 1, THECOLORS['antiquewhite']), (560,410))  
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))        
+            pygame.display.flip()
+            
+        elif show=="answered Q6":
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("How many great pyramids are there?", 1, THECOLORS['antiquewhite']), (190,180))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 300, 150, 50))
+            screen.blit(myfont_body.render("2", 1, THECOLORS['antiquewhite']), (245,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("32", 1, THECOLORS['antiquewhite']), (560,305))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_body.render("60", 1, THECOLORS['antiquewhite']), (235,410)) 
+        
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (500, 400, 150, 50))
+            screen.blit(myfont_body.render("30", 1, THECOLORS['black']), (560,410)) 
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="answering Q7"                        
+            
+        elif show=="answering Q7":    
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("finish the sentence:", 1, THECOLORS['antiquewhite']), (300,155))
+            screen.blit(myfont_body.render("The great sphinx is _______.", 1, THECOLORS['antiquewhite']), (245,200))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("Half man half lion", 1, THECOLORS['antiquewhite']), (190,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("Half man half cat", 1, THECOLORS['antiquewhite']), (520,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("half man half sphinx", 1, THECOLORS['antiquewhite']), (185,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("a human", 1, THECOLORS['antiquewhite']), (545,415))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))          
+            pygame.display.flip()
+            
+        elif show=="answered Q7":  
+            screen.blit(surface,(0,0))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("finish the sentence:", 1, THECOLORS['antiquewhite']), (300,155))
+            screen.blit(myfont_body.render("The great sphinx is _______.", 1, THECOLORS['antiquewhite']), (245,200))
+            
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['green'], (175, 300, 150, 50))
+            screen.blit(myfont_small.render("Half man half lion", 1, THECOLORS['black']), (190,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 300, 150, 50))
+            screen.blit(myfont_small.render("Half man half cat", 1, THECOLORS['antiquewhite']), (520,315))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (175, 400, 150, 50))
+            screen.blit(myfont_small.render("half man half sphinx", 1, THECOLORS['antiquewhite']), (185,415)) 
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['red'], (500, 400, 150, 50))
+            screen.blit(myfont_small.render("a human", 1, THECOLORS['antiquewhite']), (545,415))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
+            screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
+            
+            pygame.display.flip()
+            time.sleep(3)
+            show="complete" 
+        
+        elif show=="complete":
+            screen.blit(surface,(0,0))
+            quiz_completed = True
+            
+            #Displaying titles 
+            title=myfont_title.render("QUIZ", True, THECOLORS["brown"])
+            screen.blit(title, (315,50))
+            
+            #Display a speech
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+            screen.blit(myfont_small.render("Congratulations! You have completed the quiz, give yourself a pat on the", 1, THECOLORS['antiquewhite']), (180,180))
+            screen.blit(myfont_small.render("back. To view your results click the ‘results’ button below. To view your", 1, THECOLORS['antiquewhite']), (180,200))
+            screen.blit(myfont_small.render("results at any time, click the button from the main menu. If you are not", 1, THECOLORS['antiquewhite']), (180,220))
+            screen.blit(myfont_small.render("proud of your score, review the lesson, and redo the quiz.", 1, THECOLORS['antiquewhite']), (180,240))
+            
+            #Button to Main menu
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
+            screen.blit(myfont_body.render("Main menu", 1, THECOLORS['antiquewhite']), (180,360)) 
+        
+            #Button to begin results
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 350, 150, 50))
+            screen.blit(myfont_body.render("Results", 1, THECOLORS['antiquewhite']), (520,360)) 
+            
+        elif show=="results":
+            screen.blit(surface,(0,0))
+            
+            title=myfont_title.render("RESULTS", True, THECOLORS["brown"])
+            screen.blit(title, (225,50))            
+            
+            if quiz_completed:
+                result = round((correct_answers/7)*100, 2)
+                if result%1==0:
+                    result=int(result)   
+                
+                #Button to return to main menu
+                pygame.draw.rect(screen, THECOLORS['brown'], (325, 450, 175, 50))
+                screen.blit(myfont_body.render("Main menu", 1, THECOLORS['antiquewhite']), (345,460))    
+            
+                if result > 59:
+                    #Display a speech
+                    pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                    screen.blit(myfont_body.render("Good job! You have passed the quiz.", 1, THECOLORS['antiquewhite']), (180,155))
+                    screen.blit(myfont_body.render("However, you can always redo it.", 1, THECOLORS['antiquewhite']), (180, 205))
+                    screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (180,255))
+
+                    #Display mark
+                    pygame.draw.rect(screen, THECOLORS['green'], (175, 350, 475, 50))
+                    screen.blit(myfont_body.render("Grade: "+str(result)+"%", 1, THECOLORS['black']), (345,360))                
+                else:
+                    #Display a speech
+                    pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                    screen.blit(myfont_body.render("Oh no! You have failed the quiz. You", 1, THECOLORS['antiquewhite']), (180,155))
+                    screen.blit(myfont_body.render("can always retake the quiz.", 1, THECOLORS['antiquewhite']), (180,205))
+                    screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (180,255))
+                
+                    #Display mark
+                    pygame.draw.rect(screen, THECOLORS['red'], (175, 350, 475, 50))
+                    screen.blit(myfont_body.render("Grade: "+str(result)+"%", 1, THECOLORS['antiquewhite']), (342,360))  
+            
+            else:
+                #Display a speech
+                pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                screen.blit(myfont_small.render("You have not completed the quiz, yet. Come back here once you finish the", 1, THECOLORS['antiquewhite']), (180,195))
+                screen.blit(myfont_small.render("quiz to view your results. By clicking the ‘quiz’ button below, you will be", 1, THECOLORS['antiquewhite']), (180,215))
+                screen.blit(myfont_small.render("taken to the beginning of the quiz. You may also return to the main menu.", 1, THECOLORS['antiquewhite']), (180,235))
+                
+                #Button to lesson
+                pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
+                screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (180,360)) 
+            
+                #Button to begin quiz
+                pygame.draw.rect(screen, THECOLORS['brown'], (500, 350, 150, 50))
+                screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (545,360))                
+                        
+        
+        # The Event Loop #
+        events=pygame.event.get()
+            
+        #Allow user to click buttons
         for event in events:       
             pos = pygame.mouse.get_pos()
             butt = pygame.mouse.get_pressed()
             x=pos[0]
             y=pos[1]
             
-            # Detecting the click inside the button area
-            if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1 and show=="main menu":
-                show = "instructions"
-            elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1 and show=="main menu":
-                show = "lesson"            
-            elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1 and show=="main menu":
-                show = "review"    
-            elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1 and show=="main menu":
-                show = "quiz"             
-            elif x>695 and x<695+150 and y>545 and y<545+50 and butt[0]==1 and (show=="instructions" or show=="lesson" or show=="review" or show=="quiz"):
-                show = "main menu"
-                
+            #Main menu buttons
+            if show=="main menu":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show = "instructions"
+                elif x>335 and x<335+150 and y>300 and y<300+50 and butt[0]==1:
+                    show = "lesson"            
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show = "review"    
+                elif x>250 and x<250+150 and y>400 and y<400+50 and butt[0]==1:
+                    show = "quiz"
+                elif x>425 and x<425+150 and y>400 and y<400+50 and butt[0]==1:
+                    show = "results"
+            
+            #Quiz buttons
+            elif show=="quiz":
+                if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
+                    show="lesson"
+                elif x>335 and x<335+150 and y>350 and y<350+50 and butt[0]==1:
+                    show="main menu"                
+                elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
+                    show="answering Q1"
+            #Question 1
+            elif show=="answering Q1":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q1"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q1"
+                    correct_answers += 1 
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q1"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q1"         
+            #Question 2
+            elif show=="answering Q2":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q2"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q2"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q2"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q2"      
+            #Question 3
+            elif show=="answering Q3":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q3"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q3"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q3"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q3"    
+            #Question 4
+            elif show=="answering Q4":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q4"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q4"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q4"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q4"     
+            #Question 5
+            elif show=="answering Q5":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q5"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q5"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q5"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q5"    
+            #Quesiton 6
+            elif show=="answering Q6":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q6"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q6"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q6"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q6"  
+            #Question 7
+            elif show=="answering Q7":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    correct_answers += 1
+                    show="answered Q7"
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="answered Q7"
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q7"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="answered Q7"           
+            #View results or return to main menu
+            elif show=="complete":
+                if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
+                    show="main menu"
+                elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
+                    show="results"            
+            
+            #Results
+            if show=="results":
+                if quiz_completed:
+                    if x>325 and x<325+175 and y>450 and y<450+50 and butt[0]==1:
+                        show="main menu"      
+                else:
+                    if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
+                        show="main menu"
+                    elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
+                        show="quiz"                    
+                    
+            #Exit    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
                 x=0
                 y=0
-                credit_screen= pygame.image.load("images/roll_credits.png").convert_alpha()                
+                credit_screen=pygame.image.load("images/roll_credits.png").convert_alpha()                
                 
                 #scroll
                 while y!=-600:
