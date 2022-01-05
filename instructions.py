@@ -27,7 +27,7 @@ running=True
 
 while running:
     #Display instructions
-    surface = pygame.image.load("instructions.png")
+    surface = pygame.image.load("images/instructions.png")
     screen.blit(surface,(0,0))
 
         
