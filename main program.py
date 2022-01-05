@@ -66,14 +66,16 @@ screen.blit(text, (175,50))
 screen.blit(text2, (225,150))
 
 #Add our info
-name_sg=myfont_small.render("Simone Ghosh", True, THECOLORS["brown"])
-screen.blit(name_sg, (175,200))
-name_mj=myfont_small.render("Mona Jiang", True, THECOLORS["brown"])
-screen.blit(name_mj, (175,220))
-name_teacher=myfont_small.render("L. Keras", True, THECOLORS["brown"])
-screen.blit(name_teacher, (175,240))
-class_code=myfont_small.render("ICS207", True, THECOLORS["brown"])
-screen.blit(class_code, (175,260))
+pygame.draw.rect(screen, THECOLORS['brown'], (335, 245, 190, 110))
+name_sg=myfont_body.render("Simone Ghosh", True, THECOLORS["antiquewhite"])
+screen.blit(name_sg, (340,250))
+name_mj=myfont_body.render("Mona Jiang", True, THECOLORS["antiquewhite"])
+screen.blit(name_mj, (340,275))
+name_teacher=myfont_body.render("L. Keras", True, THECOLORS["antiquewhite"])
+screen.blit(name_teacher, (340,300))
+class_code=myfont_body.render("ICS207", True, THECOLORS["antiquewhite"])
+screen.blit(class_code, (340,325))
+
 #Update and refresh the display to end this frame
 pygame.display.flip() #flip all changes onto the display window
 time.sleep(2) #<-- Window will pause and than change 
