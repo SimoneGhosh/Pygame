@@ -156,14 +156,13 @@ try:
             screen.blit(title, (315,50))
             
             #Display a speech
+            x=180
+            y=135
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
-            screen.blit(myfont_small.render("Your knowledge on ancient Egypt will be tested by questions. If you do", 1, THECOLORS['antiquewhite']), (180,155))
-            screen.blit(myfont_small.render("not feel comfortable beginning the quiz, please review the lesson. Once", 1, THECOLORS['antiquewhite']), (180,175))
-            screen.blit(myfont_small.render("you have begun the quiz, you must complete all the questions, there is no", 1, THECOLORS['antiquewhite']), (180,195))
-            screen.blit(myfont_small.render("time limit, When you click an answer, the correct response will appear in", 1, THECOLORS['antiquewhite']), (180,215))
-            screen.blit(myfont_small.render("green, while the others in red. Then, after 3 seconds, the next question", 1, THECOLORS['antiquewhite']), (180,235))
-            screen.blit(myfont_small.render("will appear. In the top right corner, you will see your score. Press the", 1, THECOLORS['antiquewhite']), (180,255))
-            screen.blit(myfont_small.render("‘Start’ button to begin. Good luck!", 1, THECOLORS['antiquewhite']), (180,275))
+            with open("text/starting quiz.txt") as word_file:
+                for sentence in word_file:
+                    y+=20
+                    screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
             
             #Button to lesson
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
@@ -595,10 +594,13 @@ try:
             
             #Display a speech
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
-            screen.blit(myfont_small.render("Congratulations! You have completed the quiz, give yourself a pat on the", 1, THECOLORS['antiquewhite']), (180,180))
-            screen.blit(myfont_small.render("back. To view your results click the ‘results’ button below. To view your", 1, THECOLORS['antiquewhite']), (180,200))
-            screen.blit(myfont_small.render("results at any time, click the button from the main menu. If you are not", 1, THECOLORS['antiquewhite']), (180,220))
-            screen.blit(myfont_small.render("proud of your score, review the lesson, and redo the quiz.", 1, THECOLORS['antiquewhite']), (180,240))
+            x=180
+            y=160
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+            with open("text/quiz complete.txt") as word_file:
+                for sentence in word_file:
+                    y+=20
+                    screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
             
             #Button to Main menu
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
@@ -626,8 +628,13 @@ try:
                 if result > 59:
                     #Display a speech
                     pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
-                    screen.blit(myfont_body.render("Good job! You have passed the quiz.", 1, THECOLORS['antiquewhite']), (180,155))
-                    screen.blit(myfont_body.render("However, you can always redo it.", 1, THECOLORS['antiquewhite']), (180, 205))
+                    x=180
+                    y=105
+                    pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                    with open("text/pass quiz.txt") as word_file:
+                        for sentence in word_file:
+                            y+=50
+                            screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))                    
                     screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (180,255))
 
                     #Display mark
@@ -636,8 +643,13 @@ try:
                 else:
                     #Display a speech
                     pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
-                    screen.blit(myfont_body.render("Oh no! You have failed the quiz. You", 1, THECOLORS['antiquewhite']), (180,155))
-                    screen.blit(myfont_body.render("can always retake the quiz.", 1, THECOLORS['antiquewhite']), (180,205))
+                    x=180
+                    y=105
+                    pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                    with open("text/fail quiz.txt") as word_file:
+                        for sentence in word_file:
+                            y+=50
+                            screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))                     
                     screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (180,255))
                 
                     #Display mark
@@ -647,10 +659,14 @@ try:
             else:
                 #Display a speech
                 pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
-                screen.blit(myfont_small.render("You have not completed the quiz, yet. Come back here once you finish the", 1, THECOLORS['antiquewhite']), (180,195))
-                screen.blit(myfont_small.render("quiz to view your results. By clicking the ‘quiz’ button below, you will be", 1, THECOLORS['antiquewhite']), (180,215))
-                screen.blit(myfont_small.render("taken to the beginning of the quiz. You may also return to the main menu.", 1, THECOLORS['antiquewhite']), (180,235))
-                
+                x=180
+                y=175
+                pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 150))
+                with open("text/incomplete quiz.txt") as word_file:
+                    for sentence in word_file:
+                        y+=20
+                        screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+                        
                 #Button to lesson
                 pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
                 screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (180,360)) 
