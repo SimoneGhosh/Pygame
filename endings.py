@@ -1,8 +1,8 @@
 """
 Author: Mona
 Date: Jan 15, 2022
-Name: quiz
-Description: Poisonous pyramids interactive review endings
+Name: Interactive review endings
+Description: Death and mission success endings.
 """
 
 #Import modules
