@@ -117,7 +117,7 @@ try:
             screen.blit(myfont_body.render("False", 1, THECOLORS['antiquewhite']), (385,410)) 
             
             pygame.display.flip()
-            time.sleep(2)
+            time.sleep(1)
             show="prepared"             
             
         elif show == "prepared":
@@ -171,7 +171,7 @@ try:
 
             pygame.display.flip()             
         
-        elif show == "answering Q2":
+        elif show == "question 2":
             surface = pygame.image.load("images/pyramids_img.jpg")
             screen.blit(surface,(0,0))
             
@@ -235,20 +235,99 @@ try:
          
             pygame.display.flip()
         
-        elif show == "answering Q3":
+        elif show == "question 3":
             surface = pygame.image.load("images/pyramids_img.jpg")
-            screen.blit(surface,(0,0))            
+            screen.blit(surface,(0,0))      
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("The flooding of the Nile river occured", 1, THECOLORS['antiquewhite']), (180,155))
+            screen.blit(myfont_body.render("_______.", 1, THECOLORS['antiquewhite']), (350,200))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 200, 50))
+            screen.blit(myfont_body.render("Quarterly", 1, THECOLORS['antiquewhite']), (215,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (450, 300, 200, 50))
+            screen.blit(myfont_body.render("Semiannually", 1, THECOLORS['antiquewhite']), (470,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 200, 50))
+            screen.blit(myfont_body.render("Monthly", 1, THECOLORS['antiquewhite']), (225,410)) 
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (450, 400, 200, 50))
+            screen.blit(myfont_body.render("Annually", 1, THECOLORS['antiquewhite']), (500,410))             
+        
+        elif show == "question 4":
+            surface = pygame.image.load("images/pyramids_img.jpg")
+            screen.blit(surface,(0,0))      
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Which time period are you in right", 1, THECOLORS['antiquewhite']), (200,155))
+            screen.blit(myfont_body.render("now? (1400 BCE)", 1, THECOLORS['antiquewhite']), (300,200))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 200, 50))
+            screen.blit(myfont_body.render("Mesozoic", 1, THECOLORS['antiquewhite']), (220,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (450, 300, 200, 50))
+            screen.blit(myfont_body.render("New kingdom", 1, THECOLORS['antiquewhite']), (470,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 200, 50))
+            screen.blit(myfont_body.render("Old kingdom", 1, THECOLORS['antiquewhite']), (200,410)) 
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (450, 400, 200, 50))
+            screen.blit(myfont_body.render("Aegyptus", 1, THECOLORS['antiquewhite']), (495,410))               
+        
+        
+        elif show == "drink eat sleep":
+            surface = pygame.image.load("images/pyramids_img.jpg")
+            screen.blit(surface,(0,0))    
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 100, 475, 100))
+            screen.blit(myfont_body.render("You are hungry, thirsty, and sleepy.", 1, THECOLORS['antiquewhite']), (200,110))
+            screen.blit(myfont_body.render("What do you do?", 1, THECOLORS['antiquewhite']), (315,160))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 250, 475, 50))
+            screen.blit(myfont_body.render("Drink some water.", 1, THECOLORS['antiquewhite']), (305,260))
+        
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 475, 50))
+            screen.blit(myfont_body.render("Eat a delicious snack.", 1, THECOLORS['antiquewhite']), (290,360))             
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 450, 475, 50))
+            screen.blit(myfont_body.render("Take a quick nap.", 1, THECOLORS['antiquewhite']), (305,460))             
+        
+        elif show == "question 5":
+            surface = pygame.image.load("images/pyramids_img.jpg")
+            screen.blit(surface,(0,0))               
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
+            screen.blit(myfont_body.render("Approximately, how many gods did", 1, THECOLORS['antiquewhite']), (195,155))
+            screen.blit(myfont_body.render("the ancient Egyptians worship?", 1, THECOLORS['antiquewhite']), (220,200))
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 300, 150, 50))
+            screen.blit(myfont_body.render("1500", 1, THECOLORS['antiquewhite']), (215,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 300, 150, 50))
+            screen.blit(myfont_body.render("88", 1, THECOLORS['antiquewhite']), (560,305))
+    
+            #Button for correct answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
+            screen.blit(myfont_body.render("2000", 1, THECOLORS['antiquewhite']), (215,410)) 
+            
+            #Button for answer
+            pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
+            screen.blit(myfont_body.render("3000", 1, THECOLORS['antiquewhite']), (540,410))             
         """
-        elif show == "answered Q2":
-        
-        elif show == "answering Q3":
-        
-        elif show == "answered Q3":
-        
-        elif show == "eat sleep drink":
-        
-        elif show == "answering Q4":
-        
         elif show == "ending 1":
         
         elif show == "ending 2":
@@ -256,7 +335,10 @@ try:
         elif show == "ending 3a":
         
         elif show == "ending 3b":
+        
+        elif show=="ending 4"
         """    
+        
         # The Event Loop #
         events=pygame.event.get()
             
@@ -295,12 +377,12 @@ try:
             
             elif show=="hidden path":
                 if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
-                    show="answering Q2"
+                    show="question 2"
                     path_taken=True
                 elif x>175 and x<175+475 and y>400 and y<400+50 and butt[0]==1:
-                    show="answering Q2"                 
+                    show="question 2"                 
             
-            elif show=="answering Q2":
+            elif show=="question 2":
                 if path_taken:
                     if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
                         show="find match"
@@ -317,9 +399,46 @@ try:
                         show="ending 1"     
             
             if show=="find match":
-                if x>765 and x<765+15 and y>175 and y<175+15 and butt[0]==1:
-                    show="answering Q3"
+                if x>765 and x<765+24 and y>175 and y<175+24 and butt[0]==1:
+                    show="question 3"
+            
+            if show=="question 3":
+                if x>175 and x<175+200 and y>300 and y<300+50 and butt[0]==1:
+                    show="ending 1"     
+                elif x>450 and x<450+200 and y>300 and y<300+50 and butt[0]==1:
+                    show="ending 1"     
+                elif x>175 and x<175+200 and y>400 and y<400+50 and butt[0]==1:
+                    show="ending 1"
+                elif x>450 and x<450+200 and y>400 and y<400+50 and butt[0]==1:
+                    show="question 4"          
                     
+            if show=="question 4":
+                if x>175 and x<175+200 and y>300 and y<300+50 and butt[0]==1:
+                    show="ending 1"     
+                elif x>450 and x<450+200 and y>300 and y<300+50 and butt[0]==1:
+                    show="drink eat sleep"     
+                elif x>175 and x<175+200 and y>400 and y<400+50 and butt[0]==1:
+                    show="ending 1"
+                elif x>450 and x<450+200 and y>400 and y<400+50 and butt[0]==1:
+                    show="ending 1"                     
+                    
+            if show=="drink eat sleep":
+                if x>175 and x<175+475 and y>250 and y<250+50 and butt[0]==1:
+                    show="question 5"
+                elif x>175 and x<175+475 and y>350 and y<350+50 and butt[0]==1:
+                    show="ending 3b"
+                elif x>175 and x<175+475 and y>450 and y<450+50 and butt[0]==1:
+                    show="ending 3a"
+                    
+            if show=="question 5":
+                if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="ending 1"     
+                elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
+                    show="ending 1"     
+                elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="ending 4"
+                elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
+                    show="ending 1"     
                     
             #Allowing user to quit program    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
