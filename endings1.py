@@ -44,9 +44,12 @@ def main_menu_button():
     screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (345,505))
 
 def lesson_button():
+	pygame.draw.rect(screen, THECOLORS['antiquewhite'], (525, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
     screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (565,505))
+    
 def restart_button():
+	pygame.draw.rect(screen, THECOLORS['antiquewhite'], (125, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (130, 500, 170, 50))
     screen.blit(myfont_body.render("Restart", 1, THECOLORS['antiquewhite']), (170,505))
 
