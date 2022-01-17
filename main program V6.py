@@ -1,5 +1,5 @@
 """
-Author: Simone
+Author: Simone and Mona
 Date: 2022-01-09
 Name: main_program
 Description: added procedures
@@ -154,6 +154,14 @@ try:
             title=myfont_title.render("INSTRUCTIONS", True, THECOLORS["antiquewhite"])
             screen.blit(title, (120,50))
             
+    
+            x=75
+            y=160
+            with open("textFiles/instructions.txt") as word_file:
+                for sentence in word_file:
+                    screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+                    y+=40
+
             pygame.draw.rect(screen, THECOLORS['brown'], (350, 545, 150, 50))
             screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (385, 550))
             
@@ -167,18 +175,20 @@ try:
             x=45
             y=160
             pygame.draw.rect(screen, THECOLORS['aquamarine4'], (40, 150, 770, 120))
-            pygame.draw.rect(screen, THECOLORS['aquamarine4'], (40, 275, 225, 200))
-            pygame.draw.rect(screen, THECOLORS['aquamarine4'], (600, 300, 210, 170))
+            
             with open("textFiles/lessonintro.txt") as word_file:
                 for sentence in word_file:
                     screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
                     y+=40
 
             #start button------
-            pygame.draw.rect(screen, THECOLORS['antiquewhite'], (295, 295, 285, 110))
-            pygame.draw.rect(screen, THECOLORS['brown'], (300, 300, 275, 100))   
-            screen.blit(myfont_title.render("START", 1, THECOLORS['antiquewhite']), (300,312))
-            #-----------------------
+            pygame.draw.rect(screen, THECOLORS['antiquewhite'], (475, 315, 285, 110))
+            pygame.draw.rect(screen, THECOLORS['brown'], (480, 320, 275, 100))   
+            screen.blit(myfont_title.render("START", 1, THECOLORS['antiquewhite']), (485,332))
+            #main menu--------------
+            pygame.draw.rect(screen, THECOLORS['antiquewhite'], (100, 315, 285, 110))
+            pygame.draw.rect(screen, THECOLORS['brown'], (105, 320, 275, 100))   
+            screen.blit(myfont_title.render("Main menu", 1, THECOLORS['antiquewhite']), (110,332))
 
             #UNIT BUTTONS
             #lesson 1
@@ -223,10 +233,7 @@ try:
             screen.blit(surface,(0,0))
             screen.blit(lesson_font_big.render("1. Geography", 1, THECOLORS['antiquewhite']), (175,50))
             #images
-            '''
-            nile = pygame.image.load("images/nile river.jpeg")
-            screen.blit(nile,(50,25))
-            '''
+            
             x=50
             y=160
             with open("textFiles/lesson_1_quick_geography.txt") as word_file:
@@ -645,92 +652,92 @@ try:
                 elif x>425 and x<425+150 and y>400 and y<400+50 and butt[0]==1:
                     show = "results"
             
-            #Intruction button (return)
-            if x>350 and x<350+150 and y>545 and y<545+50 and butt[0]==1 and show=="instructions":
-                show = "main menu"          
-                if show == "lesson": #from lesson page
-                    #start button
-                    if x>300 and x<300+300 and y>300 and y<300+100 and butt[0]==1:
-                        show = "lesson 1"
-                    #UNIT BUTTONS
-                    #to lesson 1
-                    elif x>10 and x<10+158 and y>485 and y<485+95 and butt[0]==1:
-                        show = "lesson 1"
-                    #to lesson 2
-                    elif x>178 and x<178+158 and y>485 and y<485+95 and butt[0]==1:
-                        show = "lesson 2"
-                    #to lesson 3
-                    elif x>346 and x<346+158 and y>485 and y<485+95 and butt[0]==1:
-                        show = "lesson 3"
-                    #to lesson 4
-                    elif x>514 and x<514+158 and y>485 and y<485+95 and butt[0]==1:
-                        show = "lesson 4"
-                    #to lesson 5
-                    elif x>682 and x<682+158 and y>485 and y<485+95 and butt[0]==1:
-                        show = "lesson 5"
-    
-                    
-    
-                    
-                #NEXT AND BACK 
-                elif show=="lesson 1":
-                    #next button to lesson 2
-                    if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
-                        show = "lesson 2"
-                    #back button to lesson start page
-                    elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
-                        show="lesson"
-    
-        
+            #Instruction button (return)-------------------------------------------------------------
+            elif show == "lesson": #from lesson page
+                #start button
+                if x>475 and x<475+285 and y>315 and y<315+110 and butt[0]==1:
+                    show = "lesson 1"
+                elif x>105 and x<105+285 and y>315 and y<315+110 and butt[0]==1:
+                    show = "main menu"
+
+
+                #UNIT BUTTONS
+                #to lesson 1
+                elif x>10 and x<10+158 and y>485 and y<485+95 and butt[0]==1:
+                    show = "lesson 1"
+                #to lesson 2
+                elif x>178 and x<178+158 and y>485 and y<485+95 and butt[0]==1:
+                    show = "lesson 2"
+                #to lesson 3
+                elif x>346 and x<346+158 and y>485 and y<485+95 and butt[0]==1:
+                    show = "lesson 3"
+                #to lesson 4
+                elif x>514 and x<514+158 and y>485 and y<485+95 and butt[0]==1:
+                    show = "lesson 4"
+                #to lesson 5
+                elif x>682 and x<682+158 and y>485 and y<485+95 and butt[0]==1:
+                    show = "lesson 5"
+
                 
-                elif show=="lesson 2":
-                    #next button to lesson 3
-                    if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
-                        show = "lesson 3"
-                    #back button to lesson 1
-                    elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
-                        show="lesson 1"
-    
+
                 
-                elif show=="lesson 3":
-                    #next button to lesson 4
-                    if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
-                        show = "lesson 4"
-                    #back button to lesson 2
-                    elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
-                        show="lesson 2"
-               
-                elif show=="lesson 4":
-                    #next button to lesson 5
-                    if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
-                        show = "lesson 5"
-                    #back button to lesson 3
-                    elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
-                        show="lesson 3"
+            #NEXT AND BACK 
+            elif show=="lesson 1":
+                #next button to lesson 2
+                if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
+                    show = "lesson 2"
+                #back button to lesson start page
+                elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
+                    show="lesson"
+
     
-                elif show=="lesson 5":
-                    #next button to lesson done
-                    if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
-                        show = "done"
-                    #back button to lesson 4
-                    elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
-                        show="lesson 4"
-                        
-                elif show=="done":
-                    '''
-                    #go to main menu
-                    if x>495 and x<495+285 and y>150 and y<150+110 and butt[0]==1:
-                        show = "main menu"
-                    '''
-                    #go to start of lesson
-                    # change following if to elif in main program
             
-                    if x>495 and x<495+285 and y>150 and y<150+110 and butt[0]==1:
-                        show="main menu"
-                    if x>495 and x<495+285 and y>295 and y<295+110 and butt[0]==1:
-                        show="lesson"
-                    if x>495 and x<495+285 and y>440 and y<440+110 and butt[0]==1:
-                        show="review"              
+            elif show=="lesson 2":
+                #next button to lesson 3
+                if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
+                    show = "lesson 3"
+                #back button to lesson 1
+                elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
+                    show="lesson 1"
+
+            
+            elif show=="lesson 3":
+                #next button to lesson 4
+                if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
+                    show = "lesson 4"
+                #back button to lesson 2
+                elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
+                    show="lesson 2"
+           
+            elif show=="lesson 4":
+                #next button to lesson 5
+                if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
+                    show = "lesson 5"
+                #back button to lesson 3
+                elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
+                    show="lesson 3"
+
+            elif show=="lesson 5":
+                #next button to lesson done
+                if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
+                    show = "done"
+                #back button to lesson 4
+                elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
+                    show="lesson 4"
+                    
+            elif show=="done":
+                '''
+                #go to main menu
+                if x>495 and x<495+285 and y>150 and y<150+110 and butt[0]==1:
+                    show = "main menu"
+                '''
+                #go to start of lesson
+                # change following if to elif in main program
+        
+                if x>495 and x<495+285 and y>295 and y<295+110 and butt[0]==1:
+                    show="lesson"
+
+                #-------------------------------------------------------------
             
             #Quiz buttons
             elif show=="quiz":
