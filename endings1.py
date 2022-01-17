@@ -39,6 +39,7 @@ myfont_small = pygame.font.SysFont("times new roman", 15)
 test=pygame.display.get_driver()
 
 def main_menu_button():
+    pygame.draw.rect(screen, THECOLORS['antiquewhite'], (325, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (330, 500, 170, 50))
     screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (345,505))
 
