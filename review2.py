@@ -10,6 +10,7 @@ Description: Title screen of poisonous pyramids
 import pygame, sys, os, time
 from pygame.locals import * 
 from pygame.color import THECOLORS
+from time import *
 
 # If you get the no available video device error, copy and paste the below code ##
 import platform, os
@@ -37,11 +38,6 @@ myfont_body = pygame.font.SysFont("times new roman", 30)
 myfont_small = pygame.font.SysFont("times new roman", 15)
 test=pygame.display.get_driver()
 
-counter=13
-text = myfont_title.render(str(counter), True, (THECOLORS['antiquewhite']))  
-timer_event = pygame.USEREVENT+1
-pygame.time.set_timer(timer_event, 1000) 
-
 def fade(width, height): 
     fade = pygame.Surface((width, height))
     fade.fill((0,0,0))
@@ -55,18 +51,36 @@ def fade(width, height):
         if alpha==300:
             break
         
+def main_menu_button():
+    pygame.draw.rect(screen, THECOLORS['brown'], (330, 500, 170, 50))
+    screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (345,505))
+
+def lesson_button():
+    pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
+    screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (565,505))
+    
+def restart_button():
+    pygame.draw.rect(screen, THECOLORS['brown'], (130, 500, 170, 50))
+    screen.blit(myfont_body.render("Restart", 1, THECOLORS['antiquewhite']), (170,505))
+    
+def display_text_animation(string, font, colour, width, length):
+    text = ''
+    for i in range(len(string)):
+        text += string[i]
+        screen.blit(font.render(text, 1, THECOLORS[colour]), (width,length))
+        pygame.display.update()
+        pygame.time.wait(20)
+    screen.blit(font.render(string, 1, THECOLORS[colour]), (width,length))
+        
 # The Game Loop
 running=True
 show="review"
-ready = False
-path_taken = False
-screen_black = False
 
 try:
     while running:
         clock.tick(60)
-        
-        if show == "review":
+    
+        if show == "review":            
             surface = pygame.image.load("images/pyramids_img.jpg")
             screen.blit(surface,(0,0))
             
@@ -79,10 +93,11 @@ try:
             y=135
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 185))
             with open("textFiles/review info.txt") as word_file:
-                for sentence in word_file:
-                    y+=20
-                    screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-            
+                for i in range(9):
+                    for sentence in word_file:
+                        y+=20
+                        display_text_animation(sentence, myfont_small, "antiquewhite", x, y)
+                                
             #Button to lesson
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
             screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (205,360)) 
@@ -93,9 +108,14 @@ try:
             
             #Button to begin quiz
             pygame.draw.rect(screen, THECOLORS['brown'], (500, 350, 150, 50))
-            screen.blit(myfont_body.render("Start", 1, THECOLORS['antiquewhite']), (545,360))        
+            screen.blit(myfont_body.render("Start", 1, THECOLORS['antiquewhite']), (545,360))     
+            
+            ready = False
+            path_taken = False
+            screen_black = False            
             
         elif show == "answering Q1":
+            surface = pygame.image.load("images/pyramid.jpg")
             screen.blit(surface,(0,0))
             
             #Question
@@ -140,7 +160,8 @@ try:
                 with open("textFiles/review info.txt") as word_file:
                     for sentence in word_file:
                         y+=20
-                        screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+                        display_text_animation(sentence)
+                        #screen.blit(myfont_small.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
                 
                 #Button to lesson
                 pygame.draw.rect(screen, THECOLORS['brown'], (175, 350, 150, 50))
@@ -178,7 +199,6 @@ try:
             pygame.display.flip()             
         
         elif show == "question 2":
-            surface = pygame.image.load("images/pyramids_img.jpg")
             screen.blit(surface,(0,0))
             
             if path_taken:
@@ -212,13 +232,11 @@ try:
                 
                 #Button for answer
                 pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
-                screen.blit(myfont_body.render("Ramses II", 1, THECOLORS['antiquewhite']), (515,410))                 
-    
+                screen.blit(myfont_body.render("Ramses II", 1, THECOLORS['antiquewhite']), (515,410)) 
+            
             pygame.display.flip()                 
         
-            
         elif show == "find match":
-            surface = pygame.image.load("images/split path.png")
             screen.blit(surface,(0,0))
             
             if not(screen_black):
@@ -234,10 +252,10 @@ try:
                 for sentence in word_file:
                     y+=30
                     screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-            
+                          
             text_rect = text.get_rect(center = window.get_rect().center)
-            window.blit(text, text_rect)
-            pygame.display.flip()            
+            if counter<=10:
+                window.blit(text, text_rect)
             
             match = pygame.image.load("images/match.png")
             screen.blit(match,(765,175)) 
@@ -245,7 +263,7 @@ try:
             pygame.display.flip()
         
         elif show == "question 3":
-            surface = pygame.image.load("images/pyramids_img.jpg")
+            surface = pygame.image.load("images/tunnel1.jpg")
             screen.blit(surface,(0,0))      
             
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
@@ -269,7 +287,7 @@ try:
             screen.blit(myfont_body.render("Annually", 1, THECOLORS['antiquewhite']), (500,410))             
         
         elif show == "question 4":
-            surface = pygame.image.load("images/pyramids_img.jpg")
+            surface = pygame.image.load("images/tunnel2.jpg")
             screen.blit(surface,(0,0))      
             
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
@@ -294,7 +312,7 @@ try:
         
         
         elif show == "drink eat sleep":
-            surface = pygame.image.load("images/pyramids_img.jpg")
+            surface = pygame.image.load("images/tunnel3.jpg")
             screen.blit(surface,(0,0))    
             
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 100, 475, 100))
@@ -314,7 +332,7 @@ try:
             screen.blit(myfont_body.render("Take a quick nap.", 1, THECOLORS['antiquewhite']), (305,460))             
         
         elif show == "question 5":
-            surface = pygame.image.load("images/pyramids_img.jpg")
+            surface = pygame.image.load("images/tunnel4.jpg")
             screen.blit(surface,(0,0))               
             
             pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
@@ -337,17 +355,100 @@ try:
             pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
             screen.blit(myfont_body.render("3000", 1, THECOLORS['antiquewhite']), (540,410))            
             
-        """
+        
         elif show == "ending 1":
-        
+            surface = pygame.image.load("images/death.png")
+            screen.blit(surface,(0,0))
+            #cause of death
+            screen.blit(myfont_body.render("Snake bite", 1, THECOLORS['antiquewhite']), (300,170))
+            
+            #death description
+            x=125
+            y=210
+            with open("textFiles/ending 1.txt") as word_file:
+                for sentence in word_file:
+                    y+=30
+                    screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+            
+            main_menu_button()
+            lesson_button()
+            restart_button()
+            pygame.display.flip()  
+            
         elif show == "ending 2":
-        
+            surface = pygame.image.load("images/death.png")
+            screen.blit(surface,(0,0))
+            #cause of death
+            screen.blit(myfont_body.render("Snake bite", 1, THECOLORS['antiquewhite']), (300,170))
+            
+            #death description
+            x=125
+            y=210
+            with open("textFiles/ending 2.txt") as word_file:
+                for sentence in word_file:
+                    y+=30
+                    screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+            
+            main_menu_button()
+            lesson_button()
+            restart_button()
+            pygame.display.flip()
+            
         elif show == "ending 3a":
-        
+            surface = pygame.image.load("images/death.png")
+            screen.blit(surface,(0,0))
+            #cause of death
+            screen.blit(myfont_body.render("Snake attack", 1, THECOLORS['antiquewhite']), (300,170))
+            
+            #death description
+            x=120
+            y=220
+            with open("textFiles/ending 3a.txt") as word_file:
+                for sentence in word_file:
+                    y+=30
+                    screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+
+            main_menu_button()
+            lesson_button()
+            restart_button()
+            pygame.display.flip()
+            
         elif show == "ending 3b":
-        
-        elif show=="ending 4"
-        """    
+            surface = pygame.image.load("images/death.png")
+            screen.blit(surface,(0,0))
+            #cause of death
+            screen.blit(myfont_body.render("Snake attack", 1, THECOLORS['antiquewhite']), (300,170))
+            
+            #death description
+            x=120
+            y=210
+            with open("textFiles/ending 3b.txt") as word_file:
+                for sentence in word_file:
+                    y+=28
+                    screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
+
+            main_menu_button()
+            lesson_button()
+            restart_button()
+            pygame.display.flip()
+            
+        elif show=="ending 4":
+            surface = pygame.image.load("images/treasure.png")
+            screen.blit(surface,(0,0))
+            #Success!
+            screen.blit(myfont_title.render("YOU MADE IT!", 1, THECOLORS['antiquewhite']), (160,75))
+
+            #some praise
+            screen.blit(myfont_body.render("You have successfully completed your missions!", 1, THECOLORS['black']), (135,250))
+            screen.blit(myfont_body.render("Now you live a comfortable and wealthy life!", 1, THECOLORS['black']), (135,300))
+            screen.blit(myfont_body.render("You are even prepared to complete the quiz", 1, THECOLORS['black']), (135,350))
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (130, 500, 170, 50))
+            screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (145,505))       
+            
+            pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
+            screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (590,505))            
+            pygame.display.flip()
         
         # The Event Loop #
         events=pygame.event.get()
@@ -396,6 +497,11 @@ try:
                 if path_taken:
                     if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
                         show="find match"
+                        counter = 14
+                        text = myfont_title.render(str(counter), True, (THECOLORS['antiquewhite']))
+                        timer_event = pygame.USEREVENT+1
+                        pygame.time.set_timer(timer_event, 1000) 
+                        
                     elif x>175 and x<175+475 and y>400 and y<400+50 and butt[0]==1:
                         show="ending 1"     
                 else:
@@ -405,6 +511,11 @@ try:
                         show="ending 1"     
                     elif x>175 and x<175+150 and y>400 and y<400+50 and butt[0]==1:
                         show="find match"
+                        counter = 14
+                        text = myfont_title.render(str(counter), True, (THECOLORS['antiquewhite']))
+                        timer_event = pygame.USEREVENT+1
+                        pygame.time.set_timer(timer_event, 1000) 
+                        
                     elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                         show="ending 1"     
             
@@ -416,7 +527,7 @@ try:
                     text = myfont_title.render(str(counter), True, (THECOLORS["antiquewhite"]))
                     if counter == 0:
                         pygame.time.set_timer(timer_event, 0)  
-                        show="question 3"                
+                        show="ending 2"                
             
             elif show=="question 3":
                 if x>175 and x<175+200 and y>300 and y<300+50 and butt[0]==1:
@@ -455,6 +566,20 @@ try:
                     show="ending 4"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="ending 1"     
+            
+            elif show=="ending 1" or show=="ending 2" or show=="ending 3a" or show=="ending 3b":
+                if x>330 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                    show="main menu"
+                elif x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                    show="lesson"
+                elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                    show="review"
+            
+            elif show=="ending 4":
+                if x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                    show="quiz"
+                elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                    show="main menu"                
                     
             #Allowing user to quit program    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
