@@ -74,7 +74,6 @@ def next_button_back_button():
 # The Game Loop
 running=True
 show="lesson"
-quiz_completed = False
 try:
     while running:
         clock.tick(60) #frame rate/second
