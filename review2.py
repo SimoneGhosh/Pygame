@@ -1,8 +1,10 @@
 """
-Author: Simone
+Author: Simone and Mona
 Date: 2021-12-30
-Name: quiz
-Description: Title screen of poisonous pyramids
+Name: Ineractive review 
+Description: The user goes on a mission to look for a treaure chest and has to
+complete knowlege questions. If the user answers wrong, their character will die
+and they will be given the options to return to the main menu, restart, or go to lesson.
 """
 
 #Import modules
@@ -37,7 +39,7 @@ myfont_title = pygame.font.SysFont("Papyrus", 60)
 myfont_body = pygame.font.SysFont("times new roman", 30)
 myfont_small = pygame.font.SysFont("times new roman", 15)
 test=pygame.display.get_driver()
-
+myfont_medium= pygame.font.SysFont("times new roman", 23)#######add this font to main!
 def fade(width, height): 
     fade = pygame.Surface((width, height))
     fade.fill((0,0,0))
@@ -50,19 +52,23 @@ def fade(width, height):
         
         if alpha==300:
             break
-        
+    
 def main_menu_button():
+    pygame.draw.rect(screen, THECOLORS['antiquewhite'], (325, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (330, 500, 170, 50))
     screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (345,505))
 
 def lesson_button():
+    pygame.draw.rect(screen, THECOLORS['antiquewhite'], (525, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
     screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (565,505))
     
 def restart_button():
+    pygame.draw.rect(screen, THECOLORS['antiquewhite'], (125, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (130, 500, 170, 50))
     screen.blit(myfont_body.render("Restart", 1, THECOLORS['antiquewhite']), (170,505))
-    
+
+        
 def display_text_animation(string, font, colour, width, length):
     text = ''
     for i in range(len(string)):
@@ -355,7 +361,9 @@ try:
             pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
             screen.blit(myfont_body.render("3000", 1, THECOLORS['antiquewhite']), (540,410))            
             
-        
+
+
+        #ENDINGS-------------------------------------------------------------------------------
         elif show == "ending 1":
             surface = pygame.image.load("images/death.png")
             screen.blit(surface,(0,0))
@@ -447,7 +455,10 @@ try:
             screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (145,505))       
             
             pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
-            screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (590,505))            
+            screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (590,505))
+            main_menu_button()
+            lesson_button()
+            restart_button()
             pygame.display.flip()
         
         # The Event Loop #
@@ -567,7 +578,7 @@ try:
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="ending 1"     
             
-            elif show=="ending 1" or show=="ending 2" or show=="ending 3a" or show=="ending 3b":
+            elif show=="ending 1" or show=="ending 2" or show=="ending 3a" or show=="ending 3b" or show=="ending 4":
                 if x>330 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="main menu"
                 elif x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
@@ -575,12 +586,12 @@ try:
                 elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="review"
             
-            elif show=="ending 4":
-                if x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
-                    show="quiz"
-                elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
-                    show="main menu"                
-                    
+            
+                
+
+
+
+                 
             #Allowing user to quit program    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
                 running = False        
