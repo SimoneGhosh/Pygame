@@ -1,11 +1,11 @@
 """
 Author: Simone and Mona
-Date: 2022-01-09
-Name: main_program
-Description: added procedures
+Date: 2022-01-18
+Name: Poisonous_pyramid
+Description: Completed program
 """
 
-#Import modules
+#Import modules----------------------------------------------------------------------------------------
 import pygame, sys, os, time
 from pygame.locals import * 
 from pygame.color import THECOLORS
@@ -19,26 +19,25 @@ import platform
 if platform.system() == "Windows":
     os.environ['SDL_VIDEODRIVER'] = 'windib'
 
-#Initial library itself
+#Initial library itself---------------------------
 pygame.init() 
 
 
-
-#Set-up the main screen display window
+#Set-up the main screen display window-----------------------------------------------------------------
 size = (850,600)
 window = pygame.display.set_mode(size)
 pygame.display.set_caption('Poisonous Pyramid') 
 screen = pygame.display.get_surface() 
 
-#Change the logo of our window
+#Change the logo of our window--------------------
 pygame_icon = pygame.image.load("images/logo.png")
 pygame.display.set_icon(pygame_icon)
 
-#Clock
+#Clock---------------------------------------------
 clock = pygame.time.Clock()
 refresh_rate=30
 
-#Adding music
+#Adding music--------------------------------------
 # Starting the mixer
 mixer.init()
 # Loading the song
@@ -46,9 +45,9 @@ mixer.music.load("music/music.wav")
 # Setting the volume
 mixer.music.set_volume(0.3)
 # Start playing the song
-mixer.music.play()
+mixer.music.play(-1) #<-- -1 plays music in a loop
 
-#Setting up the font and the size 
+#Setting up the font and the size-------------------------
 myfont_title = pygame.font.SysFont("Papyrus", 60)
 myfont_body = pygame.font.SysFont("times new roman", 30)
 myfont_small = pygame.font.SysFont("times new roman", 15)
@@ -58,7 +57,8 @@ lesson_font_big = pygame.font.SysFont("Papyrus", 75)
 test=pygame.display.get_driver()
 
 
-#Procedures and functions
+#Procedures and functions------------------------------------------------------------------------------
+#Procedure to display quiz button-------------------------
 def question():
     screen.blit(surface,(0,0))
     pygame.draw.rect(screen, THECOLORS['brown'], (175, 150, 475, 100))
@@ -67,16 +67,20 @@ def question():
     pygame.draw.rect(screen, THECOLORS['brown'], (175, 400, 150, 50))
     pygame.draw.rect(screen, THECOLORS['brown'], (500, 400, 150, 50))
     
+#Procedure to display sentences---------------------------
 def phrase(font, answer, colour, width, length):
     screen.blit(font.render(answer, 1, THECOLORS[colour]), (width,length))
         
+#Procedures to display quiz score-------------------------
 def score(correct_answers):
     pygame.draw.rect(screen, THECOLORS['brown'], (330, 95, 150, 50))
     screen.blit(myfont_body.render("Score: "+str(correct_answers)+"/7", 1, THECOLORS['antiquewhite']), (345,105))
 
+#Procedure to display buttons-----------------------------
 def button(colour, x_value, y_value, width, length):
     pygame.draw.rect(screen, THECOLORS[colour], (x_value, y_value, width, length))
-    
+
+#Procedure to display next and back buttons for lesson----
 def next_button_back_button():    
     pygame.draw.rect(screen, THECOLORS['antiquewhite'], (720, 525, 100, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (725, 530, 90, 50))
@@ -84,21 +88,26 @@ def next_button_back_button():
     pygame.draw.rect(screen, THECOLORS['antiquewhite'], (610, 525, 100, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (615, 530, 90, 50))
     screen.blit(myfont_body.render("BACK", 1, THECOLORS['antiquewhite']), (620,538))
+
+#Procedure to display main menu button--------------------
 def main_menu_button():
     pygame.draw.rect(screen, THECOLORS['antiquewhite'], (325, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (330, 500, 170, 50))
     screen.blit(myfont_body.render("Main Menu", 1, THECOLORS['antiquewhite']), (345,505))
 
+#Procedure to display lesson button-----------------------
 def lesson_button():
     pygame.draw.rect(screen, THECOLORS['antiquewhite'], (525, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
     screen.blit(myfont_body.render("Lesson", 1, THECOLORS['antiquewhite']), (565,505))
-    
+
+#Procedure to display restart button----------------------
 def restart_button():
     pygame.draw.rect(screen, THECOLORS['antiquewhite'], (125, 495, 180, 60))
     pygame.draw.rect(screen, THECOLORS['brown'], (130, 500, 170, 50))
     screen.blit(myfont_body.render("Restart", 1, THECOLORS['antiquewhite']), (170,505))    
 
+#Procedure to fade the screen to black--------------------
 def fade(width, height): 
     fade = pygame.Surface((width, height))
     fade.fill((0,0,0))
@@ -113,7 +122,7 @@ def fade(width, height):
             break
 
 
-# The Game Loop
+# The Game Loop------------------------------------------------------------------------------------------------------------------------------------------
 running=True
 show="title screen"
 correct_answers = 0
@@ -1207,41 +1216,51 @@ try:
                 phrase(myfont_body, "Quiz", "antiquewhite", 545, 360)               
                         
         
-        # The Event Loop #
+        # The Event Loop---------------------------------------------------------------------------------------------------------------------------------
         events=pygame.event.get()
             
-        #Allow user to click buttons
+        #Allow user to click buttons----------------------------------------------------------------------------------
         for event in events:       
             pos = pygame.mouse.get_pos()
             butt = pygame.mouse.get_pressed()
             x=pos[0]
             y=pos[1]
             
-            #Main menu buttons
+            #Main menu buttons----------------------------------------------------------------------------------------
             if show=="main menu":
+                #Button for intructions 
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
                     show = "instructions"
+                
+                #Button for lesson
                 elif x>335 and x<335+150 and y>300 and y<300+50 and butt[0]==1:
-                    show = "lesson"            
+                    show = "lesson"
+                
+                #Button for review
                 elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
                     show = "review"    
+                
+                #Button for quiz
                 elif x>250 and x<250+150 and y>400 and y<400+50 and butt[0]==1:
                     show = "quiz"
+                    
+                #Button for results
                 elif x>425 and x<425+150 and y>400 and y<400+50 and butt[0]==1:
                     show = "results"
             
+            #Intructions----------------------------------------------------------------------------------------------
             elif show=="instructions":
                 if x>350 and x<350+150 and y>545 and y<545+50 and butt[0]==1:
                     show = "main menu"    
-                    
-            #Instruction button (return)-------------------------------------------------------------
+            
+            #Lesson---------------------------------------------------------------------------------------------------
             elif show == "lesson": #from lesson page
                 #start button
                 if x>475 and x<475+285 and y>315 and y<315+110 and butt[0]==1:
                     show = "lesson 1"
+                #Main mneu button
                 elif x>105 and x<105+285 and y>315 and y<315+110 and butt[0]==1:
                     show = "main menu"
-
 
                 #UNIT BUTTONS
                 #to lesson 1
@@ -1260,9 +1279,6 @@ try:
                 elif x>682 and x<682+158 and y>485 and y<485+95 and butt[0]==1:
                     show = "lesson 5"
 
-                
-
-                
             #NEXT AND BACK 
             elif show=="lesson 1":
                 #next button to lesson 2
@@ -1272,8 +1288,6 @@ try:
                 elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
                     show="lesson"
 
-    
-            
             elif show=="lesson 2":
                 #next button to lesson 3
                 if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
@@ -1281,8 +1295,7 @@ try:
                 #back button to lesson 1
                 elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
                     show="lesson 1"
-
-            
+                    
             elif show=="lesson 3":
                 #next button to lesson 4
                 if x>720 and x<720+100 and y>525 and y<525+60 and butt[0]==1:
@@ -1307,19 +1320,21 @@ try:
                 elif x>610 and x<610+100 and y>525 and y<525+60 and butt[0]==1:
                     show="lesson 4"
                     
+            #Final page
             elif show=="done":
-                
                 #go to main menu
                 if x>495 and x<495+285 and y>150 and y<150+110 and butt[0]==1:
                     show = "main menu"
-        
+                
+                #GO to lesson
                 elif x>495 and x<495+285 and y>295 and y<295+110 and butt[0]==1:
                     show="lesson"
                 
+                #Go to review
                 elif x>495 and x<495+285 and y>440 and y<440+110 and butt[0]==1:
                     show="review"
-            #-----------------------------------------------------------------
-            #Review buttons
+                    
+            #Review buttons=------------------------------------------------------------------------------------------
             elif show=="review":
                 if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
                     show="lesson"
@@ -1328,13 +1343,15 @@ try:
                 elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
                     show="review Q1"
             
-            elif show=="answering Q1": 
+            #Question 1
+            elif show=="review Q1": 
                 if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
-                    show="answered Q1"
+                    show="answered RQ1"
                     ready=True
                 elif x>175 and x<175+475 and y>400 and y<400+50 and butt[0]==1:
                     show="answered RQ1"    
             
+            #Answers to Question 1
             elif show=="prepared":
                 if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
                     show="lesson"
@@ -1343,6 +1360,7 @@ try:
                 elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
                     show="hidden path"                
             
+            #Ask user if they want to take a short cut
             elif show=="hidden path":
                 if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
                     show="map 1"
@@ -1350,6 +1368,7 @@ try:
                 elif x>175 and x<175+475 and y>400 and y<400+50 and butt[0]==1:
                     show="map 1"                 
             
+            #Question 2
             elif show=="review Q2":
                 if path_taken:
                     if x>175 and x<175+475 and y>300 and y<300+50 and butt[0]==1:
@@ -1367,16 +1386,18 @@ try:
                     elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                         show="ending 1"     
             
+            #User finds a match or dies
             elif show=="find match":
-                if x>765 and x<765+24 and y>175 and y<175+24 and butt[0]==1:
+                if x>765 and x<765+24 and y>175 and y<175+24 and butt[0]==1: #<-- match
                     show="map 3"
-                elif event.type == timer_event:
+                elif event.type == timer_event: #<-- timer 
                     counter -= 1
                     text = myfont_title.render(str(counter), True, (THECOLORS["antiquewhite"]))
                     if counter == 0:
                         pygame.time.set_timer(timer_event, 0)  
                         show="ending 2"                
             
+            #Question 3
             elif show=="review Q3":
                 if x>175 and x<175+200 and y>300 and y<300+50 and butt[0]==1:
                     show="ending 1"     
@@ -1386,7 +1407,8 @@ try:
                     show="ending 1"
                 elif x>450 and x<450+200 and y>400 and y<400+50 and butt[0]==1:
                     show="map 4"          
-                    
+            
+            #Question 4
             elif show=="review Q4":
                 if x>175 and x<175+200 and y>300 and y<300+50 and butt[0]==1:
                     show="ending 1"     
@@ -1396,7 +1418,8 @@ try:
                     show="ending 1"
                 elif x>450 and x<450+200 and y>400 and y<400+50 and butt[0]==1:
                     show="ending 1"                     
-                    
+            
+            #User chooses to drink, eat, or sleep. And if they decide to drink they continue, else they die
             elif show=="drink eat sleep":
                 if x>175 and x<175+475 and y>250 and y<250+50 and butt[0]==1:
                     show="map 6"
@@ -1405,6 +1428,7 @@ try:
                 elif x>175 and x<175+475 and y>450 and y<450+50 and butt[0]==1:
                     show="ending 3a"
                     
+            #Question 5
             elif show=="review Q5":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
                     show="ending 1"     
@@ -1415,23 +1439,27 @@ try:
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="ending 1"     
             
+            #Endings (deaths) 
             elif show=="ending 1" or show=="ending 2" or show=="ending 3a" or show=="ending 3b" or show=="ending 4":
+                #Main menu
                 if x>330 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="main menu"
+                #Lesson
                 elif x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="lesson"
+                #Review
                 elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="review"
                     
-            #-----------------------------------------------------------------
-            #Quiz buttons
+            #Quiz-----------------------------------------------------------------------------------------------------
             elif show=="quiz":
-                if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
+                if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1: #<-- go to lesson
                     show="lesson"
-                elif x>335 and x<335+150 and y>350 and y<350+50 and butt[0]==1:
+                elif x>335 and x<335+150 and y>350 and y<350+50 and butt[0]==1: #<-- go to main menu
                     show="main menu"                
-                elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
+                elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1: #<-- start quiz
                     show="answering Q1"
+            
             #Question 1
             elif show=="answering Q1":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1443,6 +1471,7 @@ try:
                     show="answered Q1"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="answered Q1"         
+            
             #Question 2
             elif show=="answering Q2":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1454,6 +1483,7 @@ try:
                     show="answered Q2"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="answered Q2"      
+            
             #Question 3
             elif show=="answering Q3":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1465,6 +1495,7 @@ try:
                     show="answered Q3"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="answered Q3"    
+            
             #Question 4
             elif show=="answering Q4":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1476,6 +1507,7 @@ try:
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     correct_answers += 1
                     show="answered Q4"     
+           
             #Question 5
             elif show=="answering Q5":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1487,6 +1519,7 @@ try:
                     show="answered Q5"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="answered Q5"    
+            
             #Quesiton 6
             elif show=="answering Q6":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1498,6 +1531,7 @@ try:
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     correct_answers += 1
                     show="answered Q6"  
+           
             #Question 7
             elif show=="answering Q7":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
@@ -1509,6 +1543,7 @@ try:
                     show="answered Q7"
                 elif x>500 and x<500+150 and y>400 and y<400+50 and butt[0]==1:
                     show="answered Q7"           
+            
             #View results or return to main menu
             elif show=="complete":
                 if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
@@ -1516,18 +1551,21 @@ try:
                 elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
                     show="results"            
             
-            #Results
+            #Results--------------------------------------------------------------------------------------------------
             if show=="results":
+                #If the quiz is completed
                 if quiz_completed:
-                    if x>325 and x<325+175 and y>450 and y<450+50 and butt[0]==1:
+                    if x>325 and x<325+175 and y>450 and y<450+50 and butt[0]==1: #<-- main menu button
                         show="main menu"      
+                
+                #If user has not completed quiz
                 else:
-                    if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1:
+                    if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1: #<-- main menu button
                         show="main menu"
-                    elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1:
+                    elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1: #<-- start quiz button
                         show="quiz"                    
                     
-            #Exit    
+            #Exit-----------------------------------------------------------------------------------------------------    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
                 x=0
                 y=0
@@ -1543,6 +1581,6 @@ try:
 
         pygame.display.update()
         
-# Event Handling End #
+# Event Handling End #-----------------------------------------------------------------------------------------------------------------------------------
 finally:
     pygame.quit()  # Keep this IDLE friendly
