@@ -184,19 +184,21 @@ try:
             phrase(myfont_body, "Results", "antiquewhite", 455, 405)
         
         elif show == "instructions":
+            # instructions background
             surface = pygame.image.load("images/instructions.png")
             screen.blit(surface,(0,0))
-            
+            #title
             title=myfont_title.render("INSTRUCTIONS", True, THECOLORS["antiquewhite"])
             screen.blit(title, (120,50))
-            
+            #display text
             x=75
             y=160
             with open("textFiles/instructions.txt") as word_file:
                 for sentence in word_file:
                     screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-                    y+=40
-
+                    y+=40 #line spacing
+                    
+            #return to main
             pygame.draw.rect(screen, THECOLORS['brown'], (350, 545, 150, 50))
             screen.blit(myfont_body.render("Return", 1, THECOLORS['antiquewhite']), (385, 550))
             
@@ -204,17 +206,19 @@ try:
             #first screen background
             lesson_screen = pygame.image.load("images/lesson_background.png")
             screen.blit(lesson_screen,(0,0))
-
+            
+            #title
             screen.blit(lesson_font_big.render("LESSON", 1, THECOLORS['antiquewhite']), (200,50))
-           
+            #background for text
+            pygame.draw.rect(screen, THECOLORS['aquamarine4'], (40, 150, 770, 120))
+           #display text
             x=45
             y=160
-            pygame.draw.rect(screen, THECOLORS['aquamarine4'], (40, 150, 770, 120))
-            
+           
             with open("textFiles/lessonintro.txt") as word_file:
                 for sentence in word_file:
                     screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-                    y+=40
+                    y+=40 #line spacing
 
             #start button------
             pygame.draw.rect(screen, THECOLORS['antiquewhite'], (475, 315, 285, 110))
@@ -225,7 +229,7 @@ try:
             pygame.draw.rect(screen, THECOLORS['brown'], (105, 320, 275, 100))   
             screen.blit(myfont_title.render("Main menu", 1, THECOLORS['antiquewhite']), (110,332))
 
-            #UNIT BUTTONS
+            #UNIT BUTTONS (could not use procedure because of different coordinates)
             #lesson 1
             pygame.draw.rect(screen, THECOLORS['antiquewhite'], (10, 485, 158, 95))
             pygame.draw.rect(screen, THECOLORS['brown'], (15, 490, 148, 85))   
@@ -256,33 +260,36 @@ try:
             screen.blit(myfont_body.render("Unit 5", 1, THECOLORS['antiquewhite']), (722,500))
             screen.blit(myfont_medium.render("Materials", 1, THECOLORS['antiquewhite']), (720,535))
             
-            pygame.display.flip()
+            pygame.display.flip() #update screen
         
 
         elif show=="lesson 1":
-        
+            #load background
             surface = pygame.image.load("images/lesson_screen_1.png")
             screen.blit(surface,(0,0))
+            #title
             screen.blit(lesson_font_big.render("1. Geography", 1, THECOLORS['antiquewhite']), (175,50))
-            #images
             
-            x=50
-            y=160
-            with open("textFiles/lesson_1_quick_geography.txt") as word_file:
+            #display text
+            x=50 #width
+            y=160 #height
+            with open("textFiles/lesson_1_quick_geography.txt") as word_file:   #import text
                 for sentence in word_file:
-                    y+=40
+                    y+=40 #spacing
                     screen.blit(myfont_medium.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
 
 
             next_button_back_button()
-            pygame.display.flip()
+            pygame.display.flip() #update screen
 
-        elif show=="lesson 2":
-              
+        elif show=="lesson 2":  #same comments from lesson 1
+             
             surface = pygame.image.load("images/lesson_screen_2.png")
             screen.blit(surface,(0,0))
+            
             screen.blit(myfont_title.render("2. Timeline ", 1, THECOLORS['antiquewhite']), (135,35))
-            x=50
+            
+            x=50 
             y=85
             with open("textFiles/Lesson_2_egyptian_rule.txt") as word_file:
                 for sentence in word_file:
@@ -291,7 +298,7 @@ try:
             next_button_back_button()
             pygame.display.flip()
 
-        elif show=="lesson 3":
+        elif show=="lesson 3":  #same comments from lesson 1
         
             surface = pygame.image.load("images/lesson_screen_1.png")
             screen.blit(surface,(0,0))
@@ -306,7 +313,7 @@ try:
             next_button_back_button()
             pygame.display.flip()
 
-        elif show=="lesson 4":
+        elif show=="lesson 4": #same comments from lesson 1
             surface = pygame.image.load("images/lesson_screen_2.png")
             screen.blit(surface,(0,0))
             screen.blit(myfont_special.render("4. The Middle Kingdom and", 1, THECOLORS['antiquewhite']), (50,50))
@@ -321,7 +328,7 @@ try:
             next_button_back_button()
             pygame.display.flip()
             
-        elif show=="lesson 5":
+        elif show=="lesson 5": # same comments from lesson 1
             surface = pygame.image.load("images/lesson_screen_2.png")
             screen.blit(surface,(0,0))
             screen.blit(myfont_special.render("5. What did they write on?", 1, THECOLORS['antiquewhite']), (100,50))
@@ -345,6 +352,7 @@ try:
             pygame.display.flip()
             
         elif show=="done":
+            # set background
             lesson_screen = pygame.image.load("images/lesson_background.png")
             screen.blit(lesson_screen,(0,0))
 
@@ -508,7 +516,7 @@ try:
                     screen.blit(surface,(0,0)) 
                 
             else:
-                x=124
+                x=124 #position dot
                 y=35
                 while x<207:
                     x+=1
@@ -854,7 +862,7 @@ try:
                 for sentence in word_file:
                     y+=30
                     screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-            
+            #buttons
             main_menu_button()
             lesson_button()
             restart_button()
@@ -873,7 +881,7 @@ try:
                 for sentence in word_file:
                     y+=30
                     screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-            
+            #buttons
             main_menu_button()
             lesson_button()
             restart_button()
@@ -892,10 +900,12 @@ try:
                 for sentence in word_file:
                     y+=30
                     screen.blit(myfont_body.render(sentence, 1, THECOLORS['antiquewhite']), (x,y))
-
+                    
+            #buttons
             main_menu_button()
             lesson_button()
             restart_button()
+            #update screen
             pygame.display.flip()
             
         elif show == "ending 3b":
@@ -917,7 +927,7 @@ try:
             restart_button()
             pygame.display.flip()
             
-        elif show=="ending 4":
+        elif show=="ending 4": 
             surface = pygame.image.load("images/treasure.png")
             screen.blit(surface,(0,0))
             #Success!
@@ -933,6 +943,8 @@ try:
             
             pygame.draw.rect(screen, THECOLORS['brown'], (530, 500, 170, 50))
             screen.blit(myfont_body.render("Quiz", 1, THECOLORS['antiquewhite']), (590,505))
+            
+            #button
             main_menu_button()
             lesson_button()
             restart_button()
@@ -942,6 +954,7 @@ try:
             surface = pygame.image.load("images/egp_pyramidssphinx.jpg")
             screen.blit(surface,(0,0))
             
+            #procedure
             phrase(myfont_title, "QUIZ", "brown", 315, 50)
             
             #Display a speech
@@ -1152,11 +1165,12 @@ try:
             phrase(myfont_body, "Results", "antiquewhite", 520, 360)
             
         elif show=="results":
+            #the surface here is the same as last time so the variable 'surface' already has an image stored
             screen.blit(surface,(0,0))
             
             phrase(myfont_title, "RESULTS", "brown", 225, 50)
             
-            if quiz_completed:
+            if quiz_completed: #percentage score
                 result = round((correct_answers/7)*100, 2)
                 if result%1==0:
                     result=int(result)   
@@ -1165,7 +1179,7 @@ try:
                 button("brown", 325, 450, 175, 50)
                 phrase(myfont_body, "Main menu", "antiquewhite", 345, 460)
             
-                if result > 59:
+                if result > 59: #pass
                     #Display a speech
                     button("brown", 175, 150, 475, 150)
                     x=180
@@ -1180,7 +1194,8 @@ try:
                     #Display mark
                     button("green", 175, 350, 475, 50)
                     phrase(myfont_body, "Grade: "+str(result)+"%", "black", 345, 360)
-                else:
+                    
+                else: #fail
                     #Display a speech
                     button("brown", 175, 150, 475, 150)
                     x=180
@@ -1440,6 +1455,7 @@ try:
                     show="ending 1"     
             
             #Endings (deaths) 
+            #these endings all have the same button coordinates
             elif show=="ending 1" or show=="ending 2" or show=="ending 3a" or show=="ending 3b" or show=="ending 4":
                 #Main menu
                 if x>330 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
@@ -1475,7 +1491,7 @@ try:
             #Question 2
             elif show=="answering Q2":
                 if x>175 and x<175+150 and y>300 and y<300+50 and butt[0]==1:
-                    correct_answers += 1
+                    correct_answers += 1 #increase score (add into accumulator)
                     show="answered Q2"
                 elif x>500 and x<500+150 and y>300 and y<300+50 and butt[0]==1:
                     show="answered Q2"
@@ -1563,9 +1579,11 @@ try:
                     if x>175 and x<175+150 and y>350 and y<350+50 and butt[0]==1: #<-- main menu button
                         show="main menu"
                     elif x>500 and x<500+150 and y>350 and y<350+50 and butt[0]==1: #<-- start quiz button
-                        show="quiz"                    
-                    
-            #Exit-----------------------------------------------------------------------------------------------------    
+                        show="quiz"  
+            #return to main menu
+            if event.type==KEYDOWN and event.key==K_RETURN: 
+                show="main menu"
+            #Exit/credits-----------------------------------------------------------------------------------------------------    
             if(event.type == QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
                 x=0
                 y=0
