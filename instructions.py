@@ -2,7 +2,7 @@
 Author: Mona
 Date: January 5th, 2021
 Name: instructions
-Description: The instructions screen of poisonous pyramids
+Description: The instructions screen of Poisonous Pyramids
 """
 
 #Import modules
