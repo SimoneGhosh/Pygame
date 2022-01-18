@@ -1,0 +1,8 @@
+Welcome to Poisonous Pyramids! We offer a lesson, interactive review, a quiz,
+ and results. Use your cursor to click the option you would like on the 
+main menu. We recommend studying the lesson then playing the review game, 
+completing the quiz to test your knowledge, and then viewing your final results. 
+You can retake the quiz as many times as you would like! If at any 
+time you would like to return to the main menu, press the return key on your 
+keyboard. If you would like to exit the pygame window, click on the "x" on 
+the window screen.
