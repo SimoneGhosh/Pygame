@@ -5,4 +5,4 @@ completing the quiz to test your knowledge, and then viewing your final results.
 You can retake the quiz as many times as you would like! If at any 
 time you would like to return to the main menu, press the return key on your 
 keyboard. If you would like to exit the pygame window, click on the "x" on 
-the window screen.
+the window screen, or click the escape button on your keyboard.
