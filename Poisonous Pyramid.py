@@ -1486,10 +1486,10 @@ try:
                 if x>330 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
                     show="main menu"
                 #Lesson
-                elif x>530 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                elif x>530 and x<530+170 and y>500 and y<500+50 and butt[0]==1:
                     show="lesson"
                 #Review
-                elif x>130 and x<330+170 and y>500 and y<500+50 and butt[0]==1:
+                elif x>130 and x<130+170 and y>500 and y<500+50 and butt[0]==1:
                     show="review"
                     
             #Quiz-----------------------------------------------------------------------------------------------------
