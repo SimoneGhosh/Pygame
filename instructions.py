@@ -57,8 +57,7 @@ try:
         clock.tick(60)
         #to scroll through the endings, press the space bar!!
         
-        
-if show == "instructions":
+        if show == "instructions":
             surface = pygame.image.load("images/instructions.png")
             screen.blit(surface,(0,0))
                     
